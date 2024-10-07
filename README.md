@@ -39,7 +39,7 @@ body {
 
 In SASS variables are declared with the preceding “$” sign, such as the following,
 
-```sass
+```scss
 $header-color: blue;
 $text-color:red;
 ```
@@ -48,7 +48,7 @@ Variables in SASS just like in Javascript can store a range of primitives such a
 
 They can be easily applied anywhere for example,
 
-```sass
+```scss
 header {
 	background-color: $header-color;
 	color: $text-color;
@@ -87,7 +87,7 @@ While this is feasible for a simple project, it can become tedious to do so if t
 
 SASS allows a much more readable nesting syntax such as the following:
 
-```sass
+```scss
 nav {
 	margin-top:15px;
 	ul {
@@ -120,16 +120,16 @@ Partials are a way to conduct a separation of concerns, avoiding conflicts, each
 
 ```
 styles
-			|
-			base
-					|
-					_index.scss
-					_reset.scss
-					_typography.scss
-			utils
-					|
-					_utils.scss
-			styles.scss
+    |
+    base
+        |
+        _index.scss
+        _reset.scss
+        _typography.scss
+    utils
+        |
+        _utils.scss
+    styles.scss
 ```
 
 <aside>
