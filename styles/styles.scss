@@ -1,0 +1,143 @@
+// Only forwarding the index file imports 
+@forward "./base/index";
+@use "./utils/index" as variables;
+
+// Reuseable classes 
+@mixin paragraph-style {
+    line-height: 1.5;
+    padding: 0 5px;
+    font-weight: 500;
+}
+@mixin callout-style ($fontSize, $bgColor) {
+    line-height: 1;
+    font-size: $fontSize;
+    background-color: $bgColor;
+    padding: 8px;
+    margin: 10px 15px;
+    text-wrap:pretty;
+}
+
+@mixin setFontSize($navType){
+    @if $navType == header {
+        font-size: 1.2rem;
+    }
+    @else if $navType == footer {
+        font-size: 0.95rem;
+    }
+    @else {
+        font-size: 1rem;
+    }
+}
+
+@mixin nav-style ($marginLeft,$navWidth,$linkColor,$visitedColor,$bgColor,$padding,$navType,$textDec,$display,$beforeContent,$beforeContentSize) {
+    nav {
+        margin-left: $marginLeft;
+        width: $navWidth;
+        ul {
+            list-style-type: none;
+            li {
+                display:$display;
+                margin-inline:10px;
+                margin-top:5px;
+                a {
+                    color: $linkColor;
+                    text-decoration: $textDec;
+                    text-underline-offset: 5px;
+                    padding: $padding;
+                    @include setFontSize($navType);
+                    margin: 16px 1px;
+                    transition:300ms;
+                    border-radius: 8px;
+                    background-color: $bgColor;
+                }
+                a:hover {
+                    background-color: white;
+                    color:black;
+                }
+                a:visited {
+                    color: $visitedColor;
+                }
+                a::before {
+                    content:$beforeContent;
+                    font-family: monospace;
+                    font-size: $beforeContentSize;
+                }
+            }
+        }
+    }
+}
+
+
+body {
+    display:flex;
+    flex-direction: column;
+}
+
+header {
+    background-color: variables.$header-color;
+    padding: 10px;
+}
+
+header {
+    @include nav-style(10px,auto,black,black,variables.$header-color,6px,header,none ,inline-block,'',1rem);
+}
+
+main {
+    background-color: variables.$main-color;
+}
+
+p {
+    @include paragraph-style;
+    color:variables.$article-color;
+}
+
+.callout_ctn p {
+    @include callout-style( 0.95rem, gray)
+}
+
+.btn-ctn {
+    padding: 20px;
+    display:flex;
+    gap: 10px;  
+}
+
+.btn {
+    padding: 10px;
+    border-radius: 8px;
+    font-family: monospace;
+    font-size: 0.95rem;
+}
+
+.btn-learn {
+    @extend .btn;
+    background-image: linear-gradient(to right,black 50%,black 50%);
+    background-size: 0 100%;
+    background-repeat: no-repeat;  
+    transition: 400ms;
+    &:hover {
+        color:white;
+        background-size: 100% 100%;
+    }
+}
+
+.btn-recc {
+    @extend .btn;
+    background-image: linear-gradient(to right,lightblue 50%,lightblue 50%);
+    background-size: 0 100%;
+    background-repeat: no-repeat;
+    transition: 400ms;
+    &:hover {
+        color:black;
+        background-size: 100% 100%;
+    }
+}
+
+footer {
+    background-color: black;
+    color:white;
+    padding: 10px 1px;
+    display:flex;
+    align-items: center;
+    gap:1px;
+    @include nav-style(0px,auto,white,grey,none,2px,footer,none,block,'>',1rem);    
+}
